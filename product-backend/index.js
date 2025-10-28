@@ -10,9 +10,8 @@ const app = express();
 
 // Allow all origins for debugging (change to specific origin when fixed)
 app.use(cors({
-  origin: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: ["https://product-frontend-mekh.onrender.com"], // ✅ your frontend Render link
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
