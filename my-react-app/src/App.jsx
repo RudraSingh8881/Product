@@ -8,7 +8,7 @@ function App() {
   const [products, setProducts] = useState([])
   const [editProduct, setEditProduct] = useState(null)
 
-  const baseUrl = import.meta.env.VITE_API_URL // ✅ backend URL
+  const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5005' // ✅ backend URL (fallback)
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem('loggedIn')
@@ -76,12 +76,22 @@ function App() {
         body: JSON.stringify({ username, password })
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Login failed');
+      // Some responses (like 404 or empty body) may return no JSON — handle safely
+      const text = await res.text();
+      let data = null;
+      try {
+        data = text ? JSON.parse(text) : null;
+      } catch (e) {
+        data = null;
       }
 
+      if (!res.ok) {
+        const errMsg = (data && data.error) || text || `Login failed (${res.status})`;
+        throw new Error(errMsg);
+      }
+
+      // Ensure `data` is an object before using
+      data = data || {};
       localStorage.setItem('user', JSON.stringify(data));
       setUser(data);
       setPage('landing');
