@@ -1,12 +1,16 @@
 {
-  "name": "product-app",
+  "name": "product-app-root",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "frontend": "cd my-react-app && npm run dev",
-    "backend": "cd product-backend && npm run dev",
-    "dev": "concurrently \"npm run frontend\" \"npm run backend\""
+    "backend": "npm run dev --prefix product-backend",
+    "frontend": "npm run dev --prefix my-react-app",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0"
   }
 }

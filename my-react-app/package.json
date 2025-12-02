@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm run dev --prefix my-react-app",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "backend": "nodemon server.js",
+    "frontend": "npm run dev --prefix my-react-app",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "keywords": [],
   "author": "",
